@@ -132,6 +132,8 @@ module PaulDowman
         # so we can use grep to isolate output from one process or server.
         # gsub works even when the output contains "\n", though there's
         # probably a small performance cost.
+        
+        message.force_encoding("BINARY") if message.respond_to?(:force_encoding) && message.encoding.name != 'UTF-8'
         message = message.gsub(/^/, @@line_prefix) if @@verbose
         
         add_without_extra_info(severity, message, progname, &block)
